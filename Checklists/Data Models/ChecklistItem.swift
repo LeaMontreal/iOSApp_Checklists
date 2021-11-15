@@ -55,6 +55,26 @@ class ChecklistItem :NSObject, Codable{
         }
     }
     
+    func scheduleNotification(after seconds: Int) {
+        if shouldRemind {
+            let center = UNUserNotificationCenter.current()
+            
+            // build notification
+            let content = UNMutableNotificationContent()
+            content.title = "Awsome"
+            content.body = "You've done a great job!"
+            content.sound = .default
+    //        content.sound = UNNotificationSound.default   // the same with use .default only
+
+            // time interval notification
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(seconds), repeats: false)    // TimeInterval is alias for Double
+            
+            let request = UNNotificationRequest(identifier: "My Notification", content: content, trigger: trigger)
+            center.add(request)
+
+        }
+    }
+    
     func removeNotification() {
         let center = UNUserNotificationCenter.current()
         center.removePendingNotificationRequests(withIdentifiers: ["\(itemID)"])

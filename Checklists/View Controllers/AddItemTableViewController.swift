@@ -119,6 +119,37 @@ class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
         }
     }
     
+    // test time interval notification
+    @IBAction func remindAfter(_ sender: UIButton) {
+        // option 3: I prefer this way
+        var item: ChecklistItem
+        if let itemToEdit = itemToEdit {
+            item = itemToEdit
+        }else {
+            item = ChecklistItem()
+        }
+
+        // add due date reminder
+        item.shouldRemind = shouldRemindSwitch.isOn
+
+        item.scheduleNotification(after: 10)
+        
+        // option 2: it's not necessory create an ChecklistItem object always
+//        var item = ChecklistItem()
+//        if let itemToEdit = itemToEdit {
+//            item = itemToEdit
+//        }
+//        item.scheduleNotification(after: 10)
+        
+        // option 1: write scheduleNotification twice, not good
+//        if let item = itemToEdit {
+//            item.scheduleNotification(after: 10)
+//        }else {
+//            let item = ChecklistItem()
+//            item.scheduleNotification(after: 10)
+//        }
+    }
+    
     @IBAction func shouldRemindToggled(_ remindSwitch: UISwitch){
         textField.resignFirstResponder()
         
